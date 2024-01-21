@@ -1,11 +1,14 @@
 using DAL.Context;
 using Microsoft.EntityFrameworkCore;
+using PL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<TreeContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("Local")));
+
+builder.Services.AddServices();
 
 builder.Services.AddControllersWithViews();
 
@@ -24,6 +27,6 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Config}/{action=Index}/{id?}");
 
 app.Run();
