@@ -29,13 +29,13 @@ public class ConfigController : Controller
     {
         return View();
     }
-    public IActionResult ImportJsonConfig()
+    public IActionResult ImportConfig()
     {
         return View();
     }
     
     [HttpPost]
-    public async Task<IActionResult> ImportJsonConfig(IFormFile? file)
+    public async Task<IActionResult> ImportConfig(IFormFile? file)
     {
         if (file is not null && file.Length > 0)
         {

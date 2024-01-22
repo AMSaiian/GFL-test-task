@@ -2,18 +2,25 @@
 using DAL.Context;
 using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BLL.Services;
 
 public class ConfigService : IConfigService
 {
-    private readonly IConfigParser _parser;
+    private readonly IConfigParser _jsonParser;
+    
+    private readonly IConfigParser _txtParser;
 
     private readonly TreeContext _context;
 
-    public ConfigService(IConfigParser parser, TreeContext context)
+    public ConfigService(
+        [FromKeyedServices("json")] IConfigParser jsonParser, 
+        [FromKeyedServices("txt")] IConfigParser txtParser, 
+        TreeContext context)
     {
-        _parser = parser;
+        _jsonParser = jsonParser;
+        _txtParser = txtParser;
         _context = context;
     }
 
@@ -22,7 +29,16 @@ public class ConfigService : IConfigService
         if (await IsExist(fileName))
             throw new ArgumentException($"Configuration with name {fileName} already exists");
 
-        Tree result = _parser.Parse(configFile, fileName);
+        string fileExtension = Path.GetExtension(fileName);
+
+        Tree result;
+        
+        if (fileExtension == ".json")
+            result = _jsonParser.Parse(configFile, fileName);
+        else if (fileExtension == ".txt")
+            result = _txtParser.Parse(configFile, fileName);
+        else
+            throw new ArgumentException($"Unsupportable file type");
 
         await _context.Set<Node>().AddAsync(result.Root!);
 

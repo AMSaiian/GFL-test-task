@@ -9,7 +9,8 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddServices(this IServiceCollection self)
     {
-        self.AddScoped<IConfigParser, JsonParser>();
+        self.AddKeyedScoped<IConfigParser, JsonParser>("json");
+        self.AddKeyedScoped<IConfigParser, TxtParser>("txt");
         self.AddScoped<IConfigService, ConfigService>();
 
         return self;
