@@ -31,21 +31,41 @@ public class ConfigService : IConfigService
 
     public async Task<Tree> RetrieveConfigFromDb(string fileName)
     {
+        if (!await IsExist(fileName))
+            throw new ArgumentException($"Configuration with name {fileName} doesn't exists");
+        
         Tree result = new()
         {
             Root = await _context.Set<Node>()
                 .Include(x =>
                     x.Children)
                 .FirstOrDefaultAsync(x =>
-                    x.Name == "root" &&
-                    x.ConfigName == fileName)
+                    x.Name == fileName)
         };
+
+        await LoadChildrenRecursively(result.Root.Children);
 
         return result;
     }
 
     private async Task<bool> IsExist(string fileName)
     {
-        return await _context.Set<Node>().AnyAsync(x => x.ConfigName == fileName);
+        bool result = await _context.Set<Node>().AnyAsync(x => x.Name == fileName);
+        return result;
+    }
+    
+    private async Task LoadChildrenRecursively(ICollection<Node> chidren)
+    {
+        foreach (var node in chidren)
+        {
+            await _context.Entry(node)
+                .Collection(x => x.Children)
+                .LoadAsync();
+            
+            if (node.Children.Any())
+            {
+                await LoadChildrenRecursively(node.Children);
+            }
+        }
     }
 }

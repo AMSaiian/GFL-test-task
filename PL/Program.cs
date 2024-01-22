@@ -14,6 +14,8 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+await app.EnsureCreateDb();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

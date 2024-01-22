@@ -7,11 +7,7 @@ namespace DAL.Entities;
 public class Node
 {
     [Key]
-    [DatabaseGenerated(databaseGeneratedOption: DatabaseGeneratedOption.None)]
-    public Guid Id { get; set; } = Guid.NewGuid();
-    
-    [Required(AllowEmptyStrings = false)]
-    public required string ConfigName { get; set; }
+    public int? Id { get; set; }
 
     [Required(AllowEmptyStrings = false)]
     public required string Name { get; set; }
@@ -19,7 +15,7 @@ public class Node
     public string? Value { get; set; }
     
     [ForeignKey("Parent")]
-    public Guid? ParentId { get; set; }
+    public int? ParentId { get; set; }
     
     public Node? Parent { get; set; }
     

@@ -12,27 +12,25 @@ public class JsonParser : IConfigParser
         
         JToken configRoot = JToken.Parse(configFile);
 
-        resultTree.Root = _traverseTree(configRoot, fileName, null);
+        resultTree.Root = _traverseTree(configRoot);
+
+        resultTree.Root.Name = fileName;
 
         return resultTree;
     }
 
-    private Node _traverseTree(JToken jNode, string fileName, Guid? parentId)
+    private Node _traverseTree(JToken jNode)
     {
         Node node = new()
         {
-            Name = jNode.Path == "" 
-                ? "root" 
-                : jNode.Path.Split('.').Last(),
-            ConfigName = fileName,
-            ParentId = parentId
+            Name = jNode.Path.Split('.').Last(),
         };
         
         switch (jNode)
         {
             case JObject nonTerminal:
                 foreach (var child in nonTerminal.Children<JProperty>())
-                    node.Children.Add(_traverseTree(child.Value, fileName, node.Id));
+                    node.Children.Add(_traverseTree(child.Value));
                 break;
             
             case JValue terminal:

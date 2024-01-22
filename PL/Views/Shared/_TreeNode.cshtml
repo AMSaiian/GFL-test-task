@@ -1,0 +1,19 @@
+﻿@model DAL.Entities.Node
+
+
+<span>@Model.Name</span>
+@if (Model.Children.Any())
+{
+    <ul>
+        @foreach (var child in Model.Children)
+        {
+            <li>
+                @await Html.PartialAsync("_TreeNode", child)
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <span>: @Model.Value</span>
+}
