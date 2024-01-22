@@ -10,10 +10,11 @@ This is a test task for applying .NET courses by GeekForLess. Task requirements 
 
 ### How to use app:
 
-1. Run app from IDE using .sln file.
-2. Visit https://localhost:7158/ (for https run). You will see home page.
-3. Click on _Import from json/txt_ tab.
-4. Upload .txt or .json file. You can find samples in project folder _Samples_ or use your files. Remember you can't upload files with same names including filename extension since it used as unique identifier of configuration. 
+1. Clone source code from master branch.
+2. Run app from IDE using .sln file.
+3. Visit https://localhost:7158/ (for https run). You will see home page.
+4. Click on _Import from json/txt_ tab.
+5. Upload .txt or .json file. You can find samples in project folder _Samples_ or use your files. Remember you can't upload files with same names including filename extension since it used as unique identifier of configuration. 
 5. After successful uploading you will be redirected to page, where you need to input name of file with configuration including file extension e.g. _Config.json_ and press _get_ button.
 6. View hierarchical view of file.
 7. You can access before uploaded configurations. Click on _View hierarchy_ tab.
