@@ -21,9 +21,9 @@ This is a test task for applying .NET courses by GeekForLess. Task requirements 
 
 ### Test execution:
 
-![Step 1](https://imgur.com/aJQpSkB)
-![Step 2](https://imgur.com/N7b7LYP)
-![Step 3](https://imgur.com/loQa3el)
-![Step 4](https://imgur.com/7qIS3US)
-![Step 5](https://imgur.com/k2n9Vz4)
-![Step 6](https://imgur.com/IqynVWR)
+![Step 1](https://i.imgur.com/aJQpSkB.png)
+![Step 2](https://i.imgur.com/N7b7LYP.png)
+![Step 3](https://i.imgur.com/loQa3el.png)
+![Step 4](https://i.imgur.com/7qIS3US.png)
+![Step 5](https://i.imgur.com/k2n9Vz4.png)
+![Step 6](https://i.imgur.com/IqynVWR.png)
